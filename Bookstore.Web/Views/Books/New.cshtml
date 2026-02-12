@@ -1,0 +1,49 @@
+@model NewBookRequest
+
+<h1 class="mb-5">Adicionar novo livro</h1>
+
+<form method="post" asp-action="Create" class="row gy-3">
+    <div class="col-12">
+        <label asp-for="Title" class="form-label">Título do livro</label>
+        <input type="text" asp-for="Title" class="form-control">
+        <span asp-validation-for="Title" class="form-text text-danger"></span>
+    </div>
+    <div class="col-4">
+        <label asp-for="Format" class="form-label">Formato</label>
+        <select asp-for="Format" asp-items="@Html.GetEnumSelectList<BookFormat>()" class="form-select"></select>
+        <span asp-validation-for="Format" class="form-text text-danger"></span>
+    </div>
+    <div class="col-4">
+        <label asp-for="CategoryId" class="form-label">Categoria</label>
+        <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-select"></select>
+        <span asp-validation-for="CategoryId" class="form-text text-danger"></span>
+    </div>
+    <div class="col-4">
+        <label asp-for="PublisherId" class="form-label">Editora</label>
+        <select asp-for="PublisherId" asp-items="@ViewBag.Publishers" class="form-select"></select>
+        <span asp-validation-for="PublisherId" class="form-text text-danger"></span>
+    </div>
+    <div class="col-12">
+        <label asp-for="AuthorIds" class="form-label">Descrição</label>
+        <select asp-for="AuthorIds" asp-items="@ViewBag.Authors" class="form-control"></select>
+        <span asp-validation-for="AuthorIds" class="form-text text-danger"></span>
+    </div>
+    <div class="col-12">
+        <label asp-for="Description" class="form-label">Descrição</label>
+        <textarea type="text" asp-for="Description" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Description" class="form-text text-danger"></span>
+    </div>
+    <div class="col-6">
+        <label asp-for="Isbn" class="form-label">ISBN</label>
+        <input type="text" asp-for="Isbn" class="form-control">
+        <span asp-validation-for="Isbn" class="form-text text-danger"></span>
+    </div>
+    <div class="col-6">
+        <label asp-for="Price" class="form-label">Preço (R$)</label>
+        <input type="text" asp-for="Price" class="form-control">
+        <span asp-validation-for="Price" class="form-text text-danger"></span>
+    </div>
+    <div class="col-12">
+        <input type="submit" value="Cadastrar" class="btn btn-primary">
+    </div>
+</form>
