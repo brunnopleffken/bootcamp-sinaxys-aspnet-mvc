@@ -1,0 +1,19 @@
+@model NewAuthorRequest
+
+<h1>Adicionar novo autor</h1>
+
+<form method="post" asp-action="Create" class="row gy-3">
+    <div class="col-12">
+        <label asp-for="FullName" class="form-label"></label>
+        <input type="text" asp-for="FullName" class="form-control">
+        <span asp-validation-for="FullName" class="form-text text-danger"></span>
+    </div>
+    <div class="col-12">
+        <label asp-for="Bio" class="form-label"></label>
+        <textarea type="text" asp-for="Bio" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Bio" class="form-text text-danger"></span>
+    </div>
+    <div class="col-12">
+        <input type="submit" value="Cadastrar" class="btn btn-primary">
+    </div>
+</form>

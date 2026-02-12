@@ -12,7 +12,7 @@
 </head>
 <body>
 
-@await Html.PartialAsync(ViewData["NavBar"] as string ?? "NavBars/_NavBar")
+@await Html.PartialAsync("NavBars/_NavBar")
 
 <div class="container">
     <main role="main" class="pb-3">
@@ -29,6 +29,7 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 
+@await Html.PartialAsync("_ValidationScriptsPartial")
 @await RenderSectionAsync("Scripts", required: false)
 
 </body>

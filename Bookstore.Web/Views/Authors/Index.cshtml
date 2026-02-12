@@ -1,0 +1,27 @@
+@model List<Author>
+
+<h1>Autores</h1>
+
+<div class="text-end">
+    <a asp-action="New" class="btn btn-primary">Adicionar autor</a>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome completo</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Author item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.FullName</td>
+            <td><a asp-action="Show" asp-route-id="@item.Id">Visualizar</a></td>
+        </tr>
+    }
+    </tbody>
+</table>

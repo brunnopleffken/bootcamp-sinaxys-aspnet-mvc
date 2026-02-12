@@ -1,0 +1,25 @@
+@model List<Category>
+
+<h1>Categorias</h1>
+
+<div class="text-end">
+    <a asp-action="New" class="btn btn-primary">Adicionar categoria</a>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome da categoria</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Category item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+        </tr>
+    }
+    </tbody>
+</table>

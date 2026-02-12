@@ -1,0 +1,16 @@
+@model AuthorResponse
+
+<h1 class="mb-5">Autor: @Model.FullName</h1>
+
+<p><strong>ID:</strong> @Model.Id</p>
+<p><strong>Nome completo:</strong> @Model.FullName</p>
+<p><strong>Perfil:</strong> @Model.Bio</p>
+
+<h4>Livros relacionados</h4>
+
+<ul>
+    @foreach (Book item in Model.Books)
+    {
+        <li>@item.Title</li>
+    }
+</ul>
