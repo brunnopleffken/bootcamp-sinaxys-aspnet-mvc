@@ -1,20 +1,33 @@
-using System.Diagnostics;
 using Bookstore.Web.Data;
+using Bookstore.Web.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Bookstore.Web.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bookstore.Web.Controllers;
 
-public class PagesController : Controller
+public class PagesController(ApplicationDbContext context) : Controller
 {
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        List<Book> books = await context.Books
+            .Include(b => b.Authors)
+            .OrderBy(b => b.Title)
+            .ToListAsync();
+
+        return View(books);
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    [Route("{id:int}")]
+    public async Task<IActionResult> Details(int id)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        Book? book = await context.Books
+            .Include(b => b.Authors)
+            .Where(b => b.Id == id)
+            .FirstOrDefaultAsync();
+
+        if (book is null)
+            return NotFound("O livro não foi encontrado");
+
+        return View(book);
     }
 }

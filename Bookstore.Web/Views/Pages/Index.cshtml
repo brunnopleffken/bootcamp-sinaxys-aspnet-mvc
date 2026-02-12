@@ -1,4 +1,19 @@
-﻿@using Bookstore.Web.Entities
+﻿@model List<Book>
+
 <div class="text-center">
     <h1 class="display-4">Welcome!</h1>
+</div>
+
+<div class="row">
+    @foreach (Book item in Model)
+    {
+        <div class="col-3">
+            <div class="text-center mb-3">
+                <img src="https://placehold.co/100x143" alt="@item.Title">
+            </div>
+            <h4><a asp-action="Details" asp-route-id="@item.Id">@item.Title</a></h4>
+            <p class="text-secondary">@string.Join(", ", item.Authors.Select(a => a.FullName))</p>
+            <p>R$ @item.Price</p>
+        </div>
+    }
 </div>
