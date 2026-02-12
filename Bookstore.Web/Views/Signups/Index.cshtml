@@ -1,0 +1,33 @@
+@model SignupRequest
+
+<h1>Crie sua conta</h1>
+
+<div asp-validation-summary="All" class="alert alert-danger"></div>
+
+<form method="post" asp-action="Create">
+    <div class="row gy-3">
+        <div class="col-8">
+            <label asp-for="FullName">Nome completo</label>
+            <input asp-for="FullName" class="form-control">
+            <span asp-validation-for="FullName" class="small text-danger"></span>
+        </div>
+        <div class="col-8">
+            <label asp-for="Email">E-mail</label>
+            <input asp-for="Email" class="form-control">
+            <span asp-validation-for="Email" class="small text-danger"></span>
+        </div>
+        <div class="col-8">
+            <label asp-for="PhoneNumber">Telefone/WhatsApp</label>
+            <input asp-for="PhoneNumber" class="form-control">
+            <span asp-validation-for="PhoneNumber" class="small text-danger"></span>
+        </div>
+        <div class="col-8">
+            <label asp-for="Password">Senha</label>
+            <input asp-for="Password" type="password" class="form-control">
+            <span asp-validation-for="Password" class="small text-danger"></span>
+        </div>
+        <div class="col-8">
+            <input type="submit" value="Criar conta" class="btn btn-primary">
+        </div>
+    </div>
+</form>
