@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bookstore.Web.Models;
 
-public record SignupRequest(
+public record NewSignupRequest(
     [Required]
     string FullName,
 

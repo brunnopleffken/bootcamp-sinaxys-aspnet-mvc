@@ -15,27 +15,27 @@ public class SignupsController(UserManager<Customer> userManager) : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(SignupRequest signupRequest)
+    public async Task<IActionResult> Create(NewSignupRequest newSignupRequest)
     {
         if (!ModelState.IsValid)
-            return View("Index", signupRequest);
+            return View("Index", newSignupRequest);
 
         Customer customer = new Customer()
         {
-            FullName = signupRequest.FullName,
-            UserName = signupRequest.Email,
-            Email = signupRequest.Email,
-            PhoneNumber = signupRequest.PhoneNumber
+            FullName = newSignupRequest.FullName,
+            UserName = newSignupRequest.Email,
+            Email = newSignupRequest.Email,
+            PhoneNumber = newSignupRequest.PhoneNumber
         };
 
         // cria um novo usuário usando o UserManager do ASP.NET Identity (validação, hash de senha, INSERT)
-        IdentityResult result = await userManager.CreateAsync(customer, signupRequest.Password);
+        IdentityResult result = await userManager.CreateAsync(customer, newSignupRequest.Password);
 
         foreach (IdentityError error in result.Errors)
             ModelState.AddModelError("", error.Description);
 
         if (!result.Succeeded)
-            return View("Index", signupRequest);
+            return View("Index", newSignupRequest);
 
         return RedirectToAction("Index", "Pages");
     }
