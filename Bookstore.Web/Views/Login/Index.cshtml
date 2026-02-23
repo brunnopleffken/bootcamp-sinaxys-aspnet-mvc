@@ -1,0 +1,28 @@
+@model LoginRequest
+
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="row justify-content-center">
+    <div class="col-6">
+        <h1 class="mb-3">Acesse sua conta</h1>
+        <form method="post" asp-action="Authenticate">
+            <div class="row gy-3">
+                <div class="col-8">
+                    <label asp-for="Email">E-mail</label>
+                    <input asp-for="Email" class="form-control">
+                    <span asp-validation-for="Email" class="small text-danger"></span>
+                </div>
+                <div class="col-8">
+                    <label asp-for="Password">Senha</label>
+                    <input asp-for="Password" type="password" class="form-control">
+                    <span asp-validation-for="Password" class="small text-danger"></span>
+                </div>
+                <div class="col-8">
+                    <input type="submit" value="Acessar" class="btn btn-primary me-3">
+                    <a asp-controller="Signups" class="fw-bold">Crie sua conta</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
