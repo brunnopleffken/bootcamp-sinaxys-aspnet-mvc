@@ -3,7 +3,6 @@ using Bookstore.Web.Entities;
 using Bookstore.Web.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,8 +33,9 @@ public class LoginController(UserManager<Customer> userManager) : Controller
         // Crio uma lista de claims (declarações) que representam as informações do usuário autenticado
         List<Claim> claims =
         [
-            new Claim("CustomerId", customer.Id.ToString()),
-            new Claim(ClaimTypes.Role, "Author")
+            new Claim(ClaimTypes.Name, customer.FullName),
+            new Claim(ClaimTypes.NameIdentifier, customer.Id.ToString()),
+            new Claim(ClaimTypes.Role, "Reader") // Author, Reader, Publisher
         ];
 
         // Crio uma identidade ("crachá") com as claims informadas
@@ -45,6 +45,12 @@ public class LoginController(UserManager<Customer> userManager) : Controller
         // Usa o HttpContext para criar um novo cookie no navegador do maluco
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
+        return RedirectToAction("Index", "Pages");
+    }
+
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync();
         return RedirectToAction("Index", "Pages");
     }
 }

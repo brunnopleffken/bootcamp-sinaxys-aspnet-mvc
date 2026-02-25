@@ -17,6 +17,8 @@ public class PagesController(ApplicationDbContext context) : Controller
         return View(books);
     }
 
+    public IActionResult AccessDenied() => View();
+
     [Route("{id:int}")]
     public async Task<IActionResult> Details(int id)
     {

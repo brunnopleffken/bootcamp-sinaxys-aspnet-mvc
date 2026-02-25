@@ -1,3 +1,8 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Bookstore.Web.Models;
 
-public record LoginRequest(string Email, string Password);
+public record LoginRequest(
+    [EmailAddress]
+    string Email,
+    string Password);

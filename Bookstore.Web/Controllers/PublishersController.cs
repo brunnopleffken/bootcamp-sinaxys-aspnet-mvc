@@ -1,11 +1,13 @@
 using Bookstore.Web.Data;
 using Bookstore.Web.Entities;
 using Bookstore.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bookstore.Web.Controllers;
 
+[Authorize]
 public class PublishersController(ApplicationDbContext context) : Controller
 {
     public async Task<IActionResult> Index()
@@ -14,12 +16,14 @@ public class PublishersController(ApplicationDbContext context) : Controller
         return View(publishers);
     }
 
+    [Authorize(Roles = "Author,Publisher")]
     public IActionResult New()
     {
         return View();
     }
 
     [HttpPost]
+    [Authorize(Roles = "Author,Publisher")]
     public async Task<IActionResult> Create(NewPublisherRequest publisherRequest)
     {
         Publisher publisher = new Publisher()

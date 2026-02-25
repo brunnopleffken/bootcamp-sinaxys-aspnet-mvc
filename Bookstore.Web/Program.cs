@@ -32,8 +32,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         // personaliza as opções de cookie, como o caminho para a página de login e acesso negado
-        options.LoginPath = "/acesse-sua-conta";
-        options.AccessDeniedPath = "/acesse-sua-conta";
+        options.LoginPath = "/Login";
+        options.AccessDeniedPath = "/AccessDenied";
     });
 
 WebApplication app = builder.Build();
@@ -49,8 +49,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication(); // quem é
+app.UseAuthorization(); // o que pode fazer
 
 app.MapStaticAssets();
 

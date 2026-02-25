@@ -1,13 +1,15 @@
 using Bookstore.Web.Data;
 using Bookstore.Web.Entities;
 using Bookstore.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bookstore.Web.Controllers;
 
-public class BooksController(ApplicationDbContext context, ILogger<BooksController> logger) : Controller
+[Authorize(Roles = "Author")]
+public class BooksController(ApplicationDbContext context) : Controller
 {
     public async Task<IActionResult> Index()
     {
