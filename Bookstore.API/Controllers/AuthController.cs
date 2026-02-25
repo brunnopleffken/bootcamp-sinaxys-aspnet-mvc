@@ -33,7 +33,7 @@ public class AuthController(UserManager<Customer> userManager) : ControllerBase
 
         // Cria a chave de segurança e as credenciais de assinatura para o token JWT
         // A chave de segurança aqui deve ser IDÊNTICA àquela configurada no Program.cs
-        SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("oEsci40uJJE74VaaQfRfWPT6Ku6Y3tCG"));
+        SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("CH4V3-S3CR374-B3M-53GUR5-D1F1C1L"));
         SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         // Cria o token JWT com as claims, expiração, emissor, público-alvo e credenciais de assinatura

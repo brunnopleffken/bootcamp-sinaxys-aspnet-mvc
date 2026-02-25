@@ -33,7 +33,7 @@ builder.Services.AddIdentityCore<Customer>(options =>
 
 // Nossa chave privada secreta super segura para assinar os tokens JWT
 // Obviamente, aqui deixamos hard-coded, mas em um cenário real, essa chave deve ser armazenada de forma segura
-const string secret = "oEsci40uJJE74VaaQfRfWPT6Ku6Y3tCG";
+const string secret = "CH4V3-S3CR374-B3M-53GUR5-D1F1C1L";
 
 // No projeto Web/MVC, usamos AddCookies() para configurar a autenticação baseada em cookies.
 // Já na API, vamos usar AddJwtBearer() para configurar a autenticação baseada em tokens JWT (JSON Web Tokens).
