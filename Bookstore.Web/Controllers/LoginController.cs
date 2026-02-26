@@ -35,7 +35,7 @@ public class LoginController(UserManager<Customer> userManager) : Controller
         [
             new Claim(ClaimTypes.Name, customer.FullName),
             new Claim(ClaimTypes.NameIdentifier, customer.Id.ToString()),
-            new Claim(ClaimTypes.Role, "Reader") // Author, Reader, Publisher
+            new Claim(ClaimTypes.Role, customer.Role) // Author, Reader, Publisher
         ];
 
         // Crio uma identidade ("crachá") com as claims informadas

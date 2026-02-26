@@ -40,6 +40,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             e.Property(p => p.Email).HasMaxLength(50);
             e.Property(p => p.IsActive).HasDefaultValue(true);
             e.Property(p => p.PhoneNumber).HasMaxLength(15);
+            e.Property(p => p.Role).HasMaxLength(20).HasDefaultValue("Reader");
         });
 
         modelBuilder.Entity<Order>(e =>
