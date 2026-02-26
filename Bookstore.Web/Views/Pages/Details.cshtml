@@ -1,4 +1,3 @@
-@using Microsoft.AspNetCore.Http.Features
 @model Book
 
 <div class="row">
@@ -12,8 +11,8 @@
         <p class="text-secondary">@string.Join(", ", Model.Authors.Select(a => a.FullName))</p>
 
         <div class="mb-5">
-            <p class="fs-3">R$ @Model.Price</p>
-            <a class="btn btn-primary">Comprar</a>
+            <p class="fs-3">@Model.Price.ToString("C")</p>
+            <a class="btn btn-success" asp-controller="Purchases" asp-action="Create" asp-route-id="@Model.Id">Comprar</a>
         </div>
 
         <p class="lead">@Model.Description</p>
