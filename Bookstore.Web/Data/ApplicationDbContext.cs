@@ -57,6 +57,16 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             e.ToTable(t => t.HasCheckConstraint("chk_quantity_non_zero", "quantity > 0"));
         });
 
+        // *****
+        // SEEDS
+        // *****
+
+        modelBuilder.Entity<Category>().HasData(
+            new Category { Id = 1, Name = "Ficção científica" },
+            new Category { Id = 2, Name = "Computação" },
+            new Category { Id = 3, Name = "Física e Astronomia" }
+        );
+
         base.OnModelCreating(modelBuilder);
     }
 }
