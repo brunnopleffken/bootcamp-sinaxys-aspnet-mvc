@@ -29,6 +29,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             e.Property(p => p.Isbn).HasMaxLength(13);
             e.Property(p => p.Price).HasPrecision(8, 2);
             e.Property(p => p.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            e.Property(p => p.CoverImage).HasMaxLength(100);
 
             // Campo "price" deve ser maior que zero, exceto se o formato for eBook (2) ou Audiobook (3)
             e.ToTable(t => t.HasCheckConstraint("chk_price_non_zero_or_ebook", "price > 0 OR format IN (2,3)"));

@@ -11,6 +11,7 @@ public class Book
     public decimal Price { get; set; }
     public BookFormat Format { get; set; }
     public DateTime CreatedAt { get; set; } // criar campo com valor default (CURRENT_TIMESTAMP)
+    public string? CoverImage { get; set; }
 
     public int CategoryId { get; set; }
     public Category? Category { get; set; }

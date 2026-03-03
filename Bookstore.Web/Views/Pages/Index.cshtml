@@ -9,7 +9,14 @@
     {
         <div class="col-3">
             <div class="text-center mb-3">
-                <img src="https://placehold.co/100x143" alt="@item.Title">
+                @if (item.CoverImage != null)
+                {
+                    <img src="/uploads/@item.CoverImage" alt="@item.Title" style="height: 143px">
+                }
+                else
+                {
+                    <img src="https://placehold.co/100x143" alt="@item.Title">
+                }
             </div>
             <h4><a asp-action="Details" asp-route-id="@item.Id">@item.Title</a></h4>
             <p class="text-secondary">@string.Join(", ", item.Authors.Select(a => a.FullName))</p>

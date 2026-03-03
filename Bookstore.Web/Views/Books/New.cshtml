@@ -2,11 +2,16 @@
 
 <h1 class="mb-5">Adicionar novo livro</h1>
 
-<form method="post" asp-action="Create" class="row gy-3">
+<form method="post" asp-action="Create" class="row gy-3" enctype="multipart/form-data">
     <div class="col-12">
         <label asp-for="Title" class="form-label">Título do livro</label>
         <input type="text" asp-for="Title" class="form-control">
         <span asp-validation-for="Title" class="form-text text-danger"></span>
+    </div>
+    <div class="col-12">
+        <label asp-for="Image" class="form-label">Imagem da capa</label>
+        <input asp-for="Image" class="form-control">
+        <span asp-validation-for="Image" class="form-text text-danger"></span>
     </div>
     <div class="col-4">
         <label asp-for="Format" class="form-label">Formato</label>

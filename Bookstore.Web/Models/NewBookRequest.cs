@@ -8,6 +8,8 @@ public record NewBookRequest(
     [MaxLength(100)]
     string Title,
 
+    IFormFile? Image,
+
     [Required]
     [MaxLength(2000)]
     string Description,

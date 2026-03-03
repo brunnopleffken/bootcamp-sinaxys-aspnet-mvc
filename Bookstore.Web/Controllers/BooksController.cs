@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Bookstore.Web.Controllers;
 
 [Authorize(Roles = "Author")]
-public class BooksController(ApplicationDbContext context) : Controller
+public class BooksController(ApplicationDbContext context, IWebHostEnvironment environment) : Controller
 {
     public async Task<IActionResult> Index()
     {
@@ -35,6 +35,38 @@ public class BooksController(ApplicationDbContext context) : Controller
     [HttpPost]
     public async Task<IActionResult> Create(NewBookRequest bookRequest)
     {
+        if (!ModelState.IsValid)
+        {
+            await PopulateSelectFields(bookRequest.CategoryId);
+            return View("New", bookRequest);
+        }
+
+        if (bookRequest.Image != null)
+        {
+            string[] allowedExtensions = [".jpg", ".png", ".jpeg", ".webp"]; // !!! TEM QUE POR O PONTO ANTES DA EXTENSÃO !!!
+            string extension = Path.GetExtension(bookRequest.Image.FileName).ToLower(); // Obtém extensão do arquivo
+
+            // Verifica se a extensão do arquivo é permitida (se existe no array que criamos)
+            if (!allowedExtensions.Contains(extension))
+            {
+                ModelState.AddModelError("Image", "Tipo de arquivo inválido");
+                await PopulateSelectFields(bookRequest.CategoryId);
+                return View("New", bookRequest);
+            }
+
+            // Obtém o caminho da pasta /wwwroot/uploads
+            string uploadFolder = Path.Combine(environment.WebRootPath, "uploads");
+            // Concatena o caminho da pasta com o nome do arquivo para obter o caminho completo
+            string filePath = Path.Combine(uploadFolder, bookRequest.Image.FileName);
+
+            // Instancia o FileStream para criar o arquivo no caminho especificado
+            await using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                // Copia o conteúdo do arquivo enviado para o "target" (FileStream), que irá salvar o arquivo no servidor
+                await bookRequest.Image.CopyToAsync(fileStream);
+            }
+        }
+
         Book book = new Book()
         {
             Title = bookRequest.Title,
@@ -44,6 +76,7 @@ public class BooksController(ApplicationDbContext context) : Controller
             Format = bookRequest.Format,
             CategoryId = bookRequest.CategoryId,
             PublisherId = bookRequest.PublisherId,
+            CoverImage = bookRequest.Image?.FileName, // Salva o nome do arquivo
             Authors = await context.Authors
                 .Where(a => bookRequest.AuthorIds.Contains(a.Id))
                 .ToListAsync()
