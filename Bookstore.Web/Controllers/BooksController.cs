@@ -28,15 +28,7 @@ public class BooksController(ApplicationDbContext context) : Controller
 
     public async Task<IActionResult> New([FromQuery] int category)
     {
-        List<Category> categories = await context.Categories.OrderBy(c => c.Name).ToListAsync();
-        ViewBag.Categories = new SelectList(categories, "Id", "Name", category);
-
-        List<Publisher> publishers = await context.Publishers.OrderBy(p => p.Name).ToListAsync();
-        ViewBag.Publishers = new SelectList(publishers, "Id", "Name");
-
-        List<Author> authors = await context.Authors.OrderBy(a => a.FullName).ToListAsync();
-        ViewBag.Authors = new MultiSelectList(authors, "Id", "FullName");
-
+        await PopulateSelectFields(category);
         return View();
     }
 
@@ -61,5 +53,17 @@ public class BooksController(ApplicationDbContext context) : Controller
         await context.SaveChangesAsync();
 
         return RedirectToAction("Index");
+    }
+
+    private async Task PopulateSelectFields(int category)
+    {
+        List<Category> categories = await context.Categories.OrderBy(c => c.Name).ToListAsync();
+        ViewBag.Categories = new SelectList(categories, "Id", "Name", category);
+
+        List<Publisher> publishers = await context.Publishers.OrderBy(p => p.Name).ToListAsync();
+        ViewBag.Publishers = new SelectList(publishers, "Id", "Name");
+
+        List<Author> authors = await context.Authors.OrderBy(a => a.FullName).ToListAsync();
+        ViewBag.Authors = new MultiSelectList(authors, "Id", "FullName");
     }
 }
