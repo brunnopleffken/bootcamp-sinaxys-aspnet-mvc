@@ -36,6 +36,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/AccessDenied";
     });
 
+builder.Services.AddMemoryCache(); // adiciona um cache em memória para armazenar dados temporários
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
